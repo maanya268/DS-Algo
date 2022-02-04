@@ -1,0 +1,49 @@
+//         int n = nums.size();
+//         int count = 0;
+//         vector<int> prefixSum(n,0);
+//         prefixSum[0] = nums[0];
+        
+//         for(int i = 1;i<n;i++)
+//         {
+//             prefixSum[i] = prefixSum[i-1] + nums[i];
+//         }
+        
+//         for(int i = 0;i<n;i++)
+//         {
+//             for(int j = i;j<n;j++)
+//             {
+//                 int sum;
+//                 if(i>0)
+//                 {
+//                     sum = prefixSum[j] - prefixSum[i-1];
+//                 }
+//                 else
+//                 {
+//                     sum = prefixSum[j];
+//                 }
+                
+//                 if(sum == k)
+//                 {
+//                     count+=1;
+//                 }
+//             }
+//         }
+//         return count;
+        
+        int n = nums.size();
+        unordered_map<int,int> myMap;
+        int prefixSum = 0;
+        int count = 0;
+        myMap[0]++;
+        
+        for(int i = 0;i<n;i++)
+        {
+            prefixSum += nums[i];
+            if(myMap.find(prefixSum - k) != myMap.end())
+            {
+                count += myMap[prefixSum-k];
+            }
+            myMap[prefixSum]++;
+        }
+        return count;
+    }
