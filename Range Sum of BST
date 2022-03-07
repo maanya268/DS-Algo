@@ -1,0 +1,49 @@
+//Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high].
+
+class Solution {
+public:
+    
+    void rangeSumBSTHelper(TreeNode* root,int low,int high,int &result)
+    {
+        if(root->val > low && root->val < high)
+        {
+            result+=root->val;
+            if(root->left != NULL)
+            {
+                rangeSumBSTHelper(root->left,low,high,result);
+            }
+            if(root->right != NULL)
+            {
+                rangeSumBSTHelper(root->right,low,high,result);
+            }
+        }
+        else if(root->val <= low)
+        {
+            if(root->val == low)
+            {
+                result += root->val;
+            }
+            if(root->right != NULL)
+            {
+                rangeSumBSTHelper(root->right,low,high,result);
+            }
+        }
+        else if(root->val >= high)
+        {
+            if(root->val == high)
+            {
+                result += root->val;
+            }
+            if(root->left != NULL)
+            {
+                rangeSumBSTHelper(root->left,low,high,result);
+            }
+        }
+    }
+    int rangeSumBST(TreeNode* root, int low, int high) 
+    {
+        int result = 0;
+        rangeSumBSTHelper(root,low,high,result);
+        return result;
+    }
+};
