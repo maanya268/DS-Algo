@@ -1,0 +1,36 @@
+Node *getListAfterDeleteOperation(Node *head)
+{
+    if(head == NULL)
+    {
+        return NULL;
+    }
+    
+    Node* i = head;
+    Node* j = head->next;
+    
+    int temp = i->data;
+    while(j != NULL)
+    {
+        if(temp > j->data)
+        {
+            if(j->next != NULL)
+            {
+                i->next = j->next;
+                temp = j->data;
+                j = j->next;
+            }
+            else
+            {
+                j = NULL;
+                i->next = j;
+            }
+        }
+        else
+        {
+            i = j;	
+            j = j->next;
+            temp = i->data;
+        }
+    }
+    return head;
+}
