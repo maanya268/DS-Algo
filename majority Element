@@ -1,0 +1,31 @@
+class Solution {
+public:
+    
+    int majorityElement(vector<int>& arr)
+    {
+        int candidate = -1;
+        int votes = 0;
+
+        for (auto x : arr)
+        {
+            if (votes == 0)
+            {
+                candidate = x;
+            }
+
+            if (candidate == x)
+            {
+                votes += 1;
+            }
+            else
+            {
+                votes--;
+            }
+        }
+        if (votes == 0)
+        {
+            return -1;
+        }
+        return candidate;
+    }
+};
