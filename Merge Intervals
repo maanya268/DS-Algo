@@ -1,0 +1,33 @@
+vector<vector<int>> merge(vector<vector<int>>& intervals) 
+    {
+        sort(intervals.begin(),intervals.end());
+        pair<int,int> element;
+        
+        element.first = intervals[0][0];
+        element.second = intervals[0][1];
+        int n = intervals.size();
+        vector<vector<int>> output;
+        int i;
+        for(i = 1;i<n;i++)
+        {
+            if(element.second >= intervals[i][0])
+            {
+                element.second = max(element.second,intervals[i][1]);
+            }
+            else
+            {
+                vector<int> ans;
+                ans.push_back(element.first);
+                ans.push_back(element.second);
+                output.push_back(ans);
+                element.first = intervals[i][0];
+                element.second = intervals[i][1];
+            }
+        }
+        vector<int> ans;
+        ans.push_back(element.first);
+        ans.push_back(element.second);
+        output.push_back(ans);
+        
+        return output;
+    }
