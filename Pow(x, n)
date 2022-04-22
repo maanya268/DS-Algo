@@ -1,0 +1,28 @@
+class Solution {
+public:
+    double myPow(double x, int n)
+    {
+        double ans = 1.0;
+        long long pn = abs(n);
+        
+        while(pn)
+        {
+            if(pn%2 == 0)
+            {
+                x = x*x;
+                pn = pn/2;
+            }
+            else if(pn%2 != 0)
+            {
+                ans = ans*x;
+                pn = pn - 1;
+            }
+        }
+        if(n<0)
+        {
+            ans = 1.0/ans;
+        }
+        return ans;
+    }
+        
+};
