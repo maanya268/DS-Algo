@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+int subarraysXor(vector<int> &arr, int x)
+{
+	unordered_map<int,int> map;
+	int count = 0;
+	int xr = 0;
+	for(int i = 0;i<arr.size();i++)
+	{
+		xr = xr^arr[i];
+		if(xr == x)
+		{
+			count++;
+		}
+		
+		int complementXor = xr^x;
+		if(map.find(complementXor) != map.end())
+		{
+			count += map[complementXor];
+		}
+		map[xr]++;
+	}
+	return count;
+}
