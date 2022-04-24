@@ -1,0 +1,67 @@
+        /*
+        if(s.length() == 1)
+        {
+            return 1;
+        }
+        unordered_map<char,int> map;
+        
+        int i = 0;
+        int j = 0;
+        int len = 0;
+        int maxlen = 0;
+        
+        while(j < s.length())
+        {
+            if(map.find(s[j]) == map.end())
+            {
+                map[s[j]]  = j;
+                j++;
+                len = j - i;
+                maxlen = max(len,maxlen);
+            }
+            else
+            {
+                len = j - i;
+                maxlen = max(len,maxlen);
+                
+                int temp = map[s[j]];
+                while(i<=temp)
+                {
+                    map.erase(s[i]);
+                    i++;
+                }
+            }
+        }
+        return maxlen;
+        */
+        if(s.length() == 1)
+        {
+            return 1;
+        }
+        
+        int i = 0;
+        int j = 0;
+        int len = 0;
+        int maxlen = 0;
+        
+        unordered_map<char,int> map;
+        while(j < s.length())
+        {
+            if(map.find(s[j]) == map.end() || map[s[j]] < i)
+            {
+                len++;
+                map[s[j]] = j;
+                maxlen = max(len,maxlen);
+            }
+            else
+            {
+                maxlen = max(maxlen,len);
+                i = map[s[j]]+1;
+                len = j - i + 1;
+                map[s[j]] = j;
+            }
+            j++;
+        }
+        return maxlen;
+        
+    }
