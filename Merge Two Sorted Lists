@@ -1,0 +1,82 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* head1, ListNode* head2) 
+    {
+        if(head1 == NULL && head2 == NULL)
+        {
+            return NULL;
+        }
+        ListNode* dummy = NULL;
+        ListNode* ptr1 = head1;
+        ListNode* ptr2 = head2;
+        ListNode* temp;
+        
+        while(ptr1 != NULL && ptr2 != NULL)
+        {
+            if(ptr1->val <= ptr2->val)
+            {
+                if(dummy == NULL)
+                {
+                    temp = dummy = ptr1;
+                    
+                }
+                else
+                {
+                    dummy->next = ptr1;
+                    dummy = dummy->next;
+                }
+                ptr1 = ptr1->next;
+            }
+            else if(ptr1->val > ptr2->val)
+            {
+                if(dummy == NULL)
+                {
+                    temp = dummy = ptr2;
+                }
+                else
+                {
+                    dummy->next = ptr2;
+                    dummy = dummy->next;
+                }
+                ptr2 = ptr2->next;
+            }
+        }
+        while(ptr1 != NULL)
+        {
+            if(dummy == NULL)
+            {
+                temp = dummy = ptr1;
+            }
+            else
+            {
+                dummy->next = ptr1;
+                dummy = dummy->next;
+            }
+            ptr1 = ptr1->next;
+        }
+        while(ptr2 != NULL)
+        {
+            if(dummy == NULL)
+            {
+                temp = dummy = ptr2;
+            }
+            else
+            {
+                dummy->next = ptr2;
+                dummy = dummy->next;   
+            }
+            ptr2 = ptr2->next;
+        }
+        return temp;
+    }
+};
