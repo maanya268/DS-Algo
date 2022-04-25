@@ -1,0 +1,113 @@
+// /**
+//  * Definition for singly-linked list.
+//  * struct ListNode {
+//  *     int val;
+//  *     ListNode *next;
+//  *     ListNode() : val(0), next(nullptr) {}
+//  *     ListNode(int x) : val(x), next(nullptr) {}
+//  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+//  * };
+//  */
+// class Solution {
+// public:
+//     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+//     {
+//         ListNode* temp1 = l1;
+//         ListNode* temp2 = l2;
+//         int carry = 0;
+        
+//         ListNode* currentSum = new ListNode(0);
+//         ListNode* finalAns = currentSum;
+//         while(temp1 != NULL && temp2 != NULL)
+//         {
+//             int add = temp1->val + temp2->val + carry;
+//             carry = add/10;
+//             int num = add%10;
+//             ListNode* newNode = new ListNode(num);
+            
+//             currentSum->next = newNode;
+//             currentSum = currentSum->next;
+            
+//             temp1 = temp1->next;
+//             temp2 = temp2->next;
+//         }
+//         while(temp1 != NULL)
+//         {
+//             int add = temp1->val + carry;
+//             carry = add/10;
+//             int num = add%10;
+//             ListNode* newNode = new ListNode(num);
+            
+//             currentSum->next = newNode;
+//             currentSum = currentSum->next;
+            
+//             temp1 = temp1->next;
+//         }
+//         while(temp2 != NULL)
+//         {
+//             int add = temp2->val + carry;
+//             carry = add/10;
+//             int num = add%10;
+//             ListNode* newNode = new ListNode(num);
+            
+//             currentSum->next = newNode;
+//             currentSum = currentSum->next;
+            
+//             temp2 = temp2->next;
+//         }
+//         if(carry)
+//         {
+//             ListNode* newNode = new ListNode(carry);
+//             currentSum->next = newNode;
+//         }
+//         return finalAns->next;
+//     }
+// };
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        ListNode* temp1 = l1;
+        ListNode* temp2 = l2;
+        ListNode* output = new ListNode(0);
+        ListNode* currentAdd = output;
+        
+        int carry = 0;
+        while(temp1 != NULL || temp2 != NULL)
+        {
+            int x = 0;
+            int y = 0;
+            if(temp1 != NULL)
+            {
+                x = temp1->val;
+            }
+            if(temp2 != NULL)
+            {
+                y = temp2->val;
+            }
+            int add = x+y+carry;
+            carry = add/10;
+            add = add%10;
+            ListNode* newNode = new ListNode(add);
+            currentAdd->next = newNode;
+            currentAdd = currentAdd->next;
+            
+            
+            if(temp1 != NULL)
+            {
+                temp1 = temp1->next;
+            }
+            if(temp2 != NULL)
+            {
+                temp2 = temp2->next;
+            }
+        }
+        if(carry)
+        {
+            ListNode* newNode = new ListNode(carry);
+            currentAdd->next = newNode;
+        }
+        return output->next;
+    }
+};
