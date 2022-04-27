@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int trap(vector<int>& height) 
+    {
+        vector<int> forward;
+        vector<int> backward;
+        int n = height.size();
+        int maxm = 0;
+        for(int i = 0;i<n;i++)
+        { 
+            maxm = max(maxm,height[i]);
+            forward.push_back(maxm);
+        }
+        
+        maxm = 0;
+        for(int i = n-1;i>=0;i--)
+        {
+            maxm = max(maxm,height[i]);
+            backward.push_back(maxm);
+        }
+        for(int i = 0;i<n;i++)
+        {
+            cout << forward[i] << " ";
+        }
+        cout << endl;
+        for(int i = 0;i<n;i++)
+        {
+            cout << backward[i] << " ";
+        }
+        
+        int sum = 0;
+        for(int i = 0;i<n;i++)
+        {
+            sum += min(forward[i],backward[n-i-1]) - height[i];
+        }
+        
+        return sum;
+    }
+};
