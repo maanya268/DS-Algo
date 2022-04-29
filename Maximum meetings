@@ -2,7 +2,12 @@
 
 bool compare(pair<int,pair<int,int>> a, pair<int,pair<int,int>> b)
 {
-	return a.second.second < b.second.second;
+	if (a.second.second == b.second.second) {
+        return a.first < b.first;
+    }
+    else{
+        return a.second.second < b.second.second;
+    }
 }
 
 vector<int> maximumMeetings(vector<int> &start, vector<int> &end) 
@@ -16,10 +21,11 @@ vector<int> maximumMeetings(vector<int> &start, vector<int> &end)
 	
 	sort(time.begin(),time.end(),compare);
 	vector<int> output;
-	int prevEnd = 0;
-	for(int i = 0;i<n;i++)
+	output.push_back(time[0].first);
+	int prevEnd = time[0].second.second;
+	for(int i = 1;i<n;i++)
 	{
-		if(prevEnd <= time[i].second.first)
+		if(prevEnd < time[i].second.first)
 		{
 			output.push_back(time[i].first);
 			prevEnd = time[i].second.second;
