@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int profit(vector<int> wines, int l, int r, int y, vector<vector<int>> &dp)
+{
+    if (l > r)
+    {
+        return 0;
+    }
+
+    if (dp[l][r] != 0)
+    {
+        return dp[l][r];
+    }
+
+    int op1 = wines[l] * y + profit(wines, l + 1, r, y + 1, dp);
+    int op2 = wines[r] * y + profit(wines, l, r - 1, y + 1, dp);
+
+    return dp[l][r] = max(op1, op2);
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector<int> wines(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> wines[i];
+    }
+
+    vector<vector<int>> dp(n, vector<int>(n, 0));
+
+    cout << profit(wines, 0, n - 1, 1, dp) << endl;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << dp[i][j] << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
