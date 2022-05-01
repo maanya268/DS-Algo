@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int profit(vector<int> wts, vector<int> prices, int n, int W, vector<vector<int>> &dp)
+{
+    if (n == 0 || W == 0)
+    {
+        return dp[n][W] = 0;
+    }
+
+    int op1 = 0;
+    if (W - wts[n - 1] >= 0)
+    {
+        op1 = prices[n - 1] + profit(wts, prices, n - 1, W - wts[n - 1], dp);
+    }
+    int op2 = profit(wts, prices, n - 1, W, dp);
+
+    return dp[n][W] = max(op1, op2);
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector<int> weights(n);
+    vector<int> prices(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> weights[i];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cin >> prices[i];
+    }
+
+    int capacity;
+    cin >> capacity;
+
+    vector<vector<int>> dp(n + 1, vector<int>(capacity + 1, -1));
+    cout << profit(weights, prices, n, capacity, dp) << endl;
+    for (int i = 0; i <= n; i++)
+    {
+        for (int j = 0; j <= capacity; j++)
+        {
+            cout << dp[i][j] << "   ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
