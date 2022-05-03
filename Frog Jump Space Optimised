@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+int frogJump(int n, vector<int> &heights)
+{
+// 	vector<int> dp(n,0);
+	int next1 = 0;
+	int next2 = 0;
+	int curr;
+	for(int i = n-2;i>=0;i--)
+	{
+		int energy1 = INT_MAX;
+		int energy2 = INT_MAX;
+		if(i+1 < n)
+		{
+			energy1 = abs(heights[i] - heights[i+1]) + next1;
+		}
+		if(i+2 < n)
+		{
+			energy2 = abs(heights[i] - heights[i+2]) + next2;
+		}
+		curr = min(energy1,energy2);
+		next2 = next1;
+		next1 = curr;
+	}
+	return curr;
+}
