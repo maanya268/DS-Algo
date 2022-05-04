@@ -1,0 +1,38 @@
+int ninjaTrainingHelper(int day, vector<vector<int>> &points,int last,vector<vector<int>> &dp)
+{
+	if(day == 0)
+	{
+		int maxi = 0;
+		for(int i = 0;i<=2;i++)
+		{
+			if(i != last)
+			{
+				int point = points[day][i];
+				maxi = max(point,maxi);
+			}
+		}
+		return dp[day][last] = maxi;
+	}
+	if(dp[day][last] != -1)
+	{
+		return dp[day][last];
+	}
+	
+	int maxi = 0;
+	for(int i = 0;i<=2;i++)
+	{
+		if(i != last)
+		{
+			int point = points[day][i] + ninjaTrainingHelper(day-1,points,i,dp);
+			maxi = max(point,maxi);
+		}
+	}
+	return dp[day][last] = maxi;
+}
+	
+int ninjaTraining(int n, vector<vector<int>> &points)
+{
+    // Write your code here.
+	vector<vector<int>> dp(n,vector<int>(4,-1));
+	return ninjaTrainingHelper(n-1, points,3,dp);
+}
