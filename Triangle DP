@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) 
+    {
+        int n = triangle.size();
+        
+        vector<vector<int>> dp(n,vector<int>(n,INT_MAX));
+        
+        for(int i = 0;i<n;i++)
+        {
+            for(int j = 0;j<=i;j++)
+            {
+                if(i == 0)
+                {
+                    dp[i][j] = triangle[i][j];
+                }
+                else
+                {
+                    int op1 = INT_MAX;
+                    int op2 = INT_MAX;
+                    if(i-1 >= 0)
+                    {
+                        op1 = dp[i-1][j];
+                    }
+                    if(i-1 >= 0 && j-1 >= 0)
+                    {
+                        op2 = dp[i-1][j-1];
+                    }
+                    dp[i][j] = min(op1,op2) + triangle[i][j];
+                }
+            }
+        }
+        int minm = INT_MAX;
+        for(int i = 0;i<n;i++)
+        {
+            minm = min(dp[n-1][i],minm);
+        }
+        return minm;
+    }
+};
