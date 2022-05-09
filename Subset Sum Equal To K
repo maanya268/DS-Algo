@@ -1,0 +1,32 @@
+bool subsetSumToKHelper(int i,int n,int k,vector<int> &arr,vector<vector<int>> &dp)
+{
+	if(i == n)
+	{
+		if(k == 0)
+		{
+			return 1;
+		}
+		return 0;
+	}
+	
+	if(dp[i][k] != -1)
+	{
+		return dp[i][k];
+	}
+	
+	bool op1 = 0;
+	bool op2 = 0;
+	if(k-arr[i] >= 0)
+	{
+		op1 = subsetSumToKHelper(i+1,n,k-arr[i],arr,dp);
+	}
+	op2 = subsetSumToKHelper(i+1,n,k,arr,dp);
+	
+	return dp[i][k] = op1 || op2; 
+}
+
+bool subsetSumToK(int n, int k, vector<int> &arr) 
+{	
+	vector<vector<int>> dp(n+1,vector<int>(k+1,-1));
+	return subsetSumToKHelper(0,n,k,arr,dp);
+}
