@@ -1,0 +1,28 @@
+bool subsetSumToK(int n, int target, vector<int> &arr) 
+{
+	vector<vector<bool>> dp(n,vector<bool>(target+1,false));
+	
+	for(int i = 0;i<n;i++)
+	{
+		dp[i][0] = true;
+	}
+	
+	dp[0][arr[0]] = true;
+	
+	for(int i = 1;i<n;i++)
+	{
+		for(int j = 1;j<=target;j++)
+		{
+			bool op1 = false;
+			bool op2 = false;
+			
+			if(j-arr[i] >= 0)
+			{
+				op1 = dp[i-1][j-arr[i]];
+			}
+			op2 = dp[i-1][j];
+			dp[i][j] = op1 || op2;
+		}
+	}
+	return dp[n-1][target];
+}
