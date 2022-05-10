@@ -1,0 +1,47 @@
+int minSubsetSumDifference(vector<int>& arr, int n)
+{
+	int totalSum = 0;
+	for(int i = 0;i<n;i++)
+	{
+		totalSum += arr[i];
+	}
+	int k = totalSum;
+	
+	vector<vector<bool>> dp(n,vector<bool>(k+1,false));
+	
+	for(int i = 0;i<n;i++)
+	{
+		dp[i][0] = true;
+	}
+	
+	if(arr[0] <= k)
+	{
+		dp[0][arr[0]] = true;
+	}
+	
+	for(int i = 1;i<n;i++)
+	{
+		for(int j = 1;j<=k;j++)
+		{
+			bool op1 = false;
+			bool op2 = false;
+			if(j-arr[i] >= 0)
+			{
+				op1 = dp[i-1][j-arr[i]];
+			}
+			op2 = dp[i-1][j];
+			
+			dp[i][j] = op1 || op2;
+		}
+	}
+	
+	int mini = 1e9;
+	for(int s1 = 0;s1 <= totalSum/2;s1++)
+	{
+		if(dp[n-1][s1] == true)
+		{
+			mini = min(mini,abs(totalSum-s1-s1));
+		}
+	}
+	return mini;
+}
