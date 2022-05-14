@@ -1,0 +1,32 @@
+int knapsackHelper(int i,vector<int> weight,vector<int> val,int n,int maxWeight,vector<vector<int>> &dp)
+{
+	if(i == n-1)
+	{
+		if(maxWeight >= weight[i])
+		{
+			return val[i];
+		}
+		return 0;
+	}
+	
+	if(dp[i][maxWeight] != -1)
+	{
+		return dp[i][maxWeight];
+	}
+	
+	int op1 = INT_MIN;
+	int op2 = INT_MIN;
+	if(maxWeight - weight[i] >= 0)
+	{
+		op1 = val[i] + knapsackHelper(i+1,weight,val,n,maxWeight-weight[i],dp);
+	}
+	op2 = knapsackHelper(i+1,weight,val,n,maxWeight,dp);
+	
+	return dp[i][maxWeight] = max(op1,op2);
+}
+
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	vector<vector<int>> dp(n,vector<int>(maxWeight+1,-1));
+	return knapsackHelper(0,weight,value,n,maxWeight,dp);
+}
